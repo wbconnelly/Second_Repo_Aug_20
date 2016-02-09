@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb 07 20:11:30 2016
+
+@author: William
+"""
 
 import pandas as pd
 import numpy as np
@@ -103,11 +109,11 @@ va_data['State'] = state2
 pct_asp = []
 for i in va_data.NOTES:
     if i.find('%') != -1:
-        x = i[i.find('%') - 2: i.find('%')]
+        x = int(i[i.find('%') - 2: i.find('%')])
     elif'value meets or exceeds aspirational goal; ' in i:
         x = 100
     else:
-        x = 'nan'
+        x = ''
     pct_asp.append(x)
     
 va_data['pct_asp_wn'] = pct_asp
@@ -180,14 +186,27 @@ for i in va_data2.MEASURE:
     x = i[i.find(" ", i.find(" ") +1):].strip()
     measure_def.append(x)
 va_data2['MEASURE_DEF'] = measure_def
-
+va_data2['pct_asp_wn'] = pct_asp
 
 va_data2.head()
-
-va_data2.to_csv('C:/Users/William/Desktop/DSA_Homework_VA_ASPIRE_data/VA_DATA_V2.csv')
 
 va_data2.columns
 # get the Averages across years for all States
 va_data2.groupby(['State', 'FY']).mean().reset_index()
+
+va_data2['pct_asp_wn'].mean()
+x = va_data2.pct_asp_wn
+PCT_ASP = x.convert_objects(convert_numeric= True)
+# or 
+va_data2['pct_asp_wn'] = va_data2['pct_asp_wn'].astype('float')
+
+va_data2['pct_asp_wn'] = list(PCT_ASP)
+va_data2['pct_asp_wn'].mean(dropna = True)
+
+
+va_data2.to_csv('C:/Users/William/Desktop/DSA_Homework_VA_ASPIRE_data/VA_DATA_V2.csv')
+
+
+
 
 

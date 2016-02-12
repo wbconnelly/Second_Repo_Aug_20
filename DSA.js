@@ -1,20 +1,12 @@
-//jQuery(function($) {
-//  function changeCAT() {
-//    $('#avg_scores').replaceWith('<iframe id = "avg_scores" width="100%" title="State Scores for Efficiency All Years" height="425px" src="https://opendata.socrata.com/w/e7v3-dykt/y34g-bnf3?cur=-O_5jDmfgMG&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Efficiency-All-Years/e7v3-dykt" title="State Scores for Efficiency All Years" target="_blank">"State Scores for Efficiency All Years"</a></iframe>');
- // };
- // $('#btn1').click(changeCAT);
-//});
-
-
-// next link: <iframe id = "avg_scores" width="500px" title="State Scores for Effectiveness" height="425px" src="https://opendata.socrata.com/w/fcf5-3ncu/y34g-bnf3?cur=wyPLO4ia5CS&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Effectiveness/fcf5-3ncu" title="State Scores for Effectiveness" target="_blank">""State Scores for Effectiveness"</a></iframe>
-
 jQuery(function($) {
-  function changeCAT() {
-  var choice = $('#choice').val() 
-  if(choice == "effectiveness" ){$('#avg_scores').replaceWith('<iframe id = "avg_scores" width="100%" title="State Scores for Effectiveness" height="425px" src="https://opendata.socrata.com/w/fcf5-3ncu/y34g-bnf3?cur=wyPLO4ia5CS&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Effectiveness/fcf5-3ncu" title="State Scores for Effectiveness" target="_blank">""State Scores for Effectiveness"</a></iframe>');}
-   else if (choice == "safety"){$('#avg_scores').replaceWith('<iframe id = "avg_scores" width="100%" title="State Scores for Safety All Years" height="425px" src="https://opendata.socrata.com/w/8tjz-p37i/y34g-bnf3?cur=La5O1pRe-4N&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Safety-All-Years/8tjz-p37i" title="State Scores for Safety All Years" target="_blank">"State Scores for Safety All Years"</a></iframe>');}
-   else if (choice == "efficiency"){$('#avg_scores').replaceWith('<iframe id = "avg_scores" width="100%" title="State Scores for Efficiency All Years" height="425px" src="https://opendata.socrata.com/w/e7v3-dykt/y34g-bnf3?cur=-O_5jDmfgMG&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Efficiency-All-Years/e7v3-dykt" title="State Scores for Efficiency All Years" target="_blank">"State Scores for Efficiency All Years"</a></iframe>');}
+  function changeCAT2() {
+  var choice = $('#choice2').val() 
+  if(choice == "effectiveness" ){$('#avg_improvement').replaceWith('<iframe id = "avg_improvement" width="100%" title="Improvement Effectiveness" height="425px" src="https://opendata.socrata.com/w/2zj4-gkct/y34g-bnf3?cur=GzimJB9mK-h&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-Effectiveness/2zj4-gkct" title="Improvement Effectiveness" target="_blank">"Improvement Effectiveness"</a></iframe>');}
+   else if (choice == "safety"){$('#avg_improvement').replaceWith('<iframe id = "avg_improvement" width="100%" title="Improvement in Safety" height="425px" src="https://opendata.socrata.com/w/dtbn-94bu/y34g-bnf3?cur=DSZT_y-PvOb&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-in-Safety/dtbn-94bu" title="Improvement in Safety" target="_blank">"Improvement in Safety"</a></iframe>');}
+   else if (choice == "efficiency"){$('#avg_improvement').replaceWith('<iframe id = "avg_improvement" width="100%" title="Improvement in Efficiency" height="425px" src="https://opendata.socrata.com/w/fiyv-6hpq/y34g-bnf3?cur=izKG9jQrv-S&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-in-Efficiency/fiyv-6hpq" title="Improvement in Efficiency" target="_blank">"Improvement in Efficiency"</a></iframe>');}
    else {alert('Please make a valid choice');}
    };
-  $('#btn1').click(changeCAT);
+  $('#btn2').click(changeCAT2);
 });
+
+

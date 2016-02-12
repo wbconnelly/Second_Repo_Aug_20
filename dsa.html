@@ -1,17 +1,25 @@
-
+<!DOCTYPE html>
 <html>
 <head>
 <style>
 .center-image{
  margin-bottom: 10px;
  margin-top: 10px;
- margin-right: 10px;
-margin-left: 10px
+ margin-right: 0px;
+margin-left: 0px
 } 
 .padding-col{width: 2%;}
 .border-show {
     border-style: solid;
     border-color: #000000;
+}
+input[type=text], select {
+    width: 20%;
+    padding: 7px 10px;
+    margin: px 10px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+   
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -23,55 +31,78 @@ margin-left: 10px
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
 <script src = "DSA.js"></script>
+<script src = "DSA2.js"></script>
 </head>
+
 <body>
 
 <div class="row">
-  <div class = "col-md-12 text-center"> <h2><strong><u>DSA Homework Assignment</u></strong></h2></div>
+
+  <div class = "col-md-10 text-center col-md-offset-1" style = "background-color: black"> <h2><strong><u><font color = "white">DSA Homework Assignment</font></u></strong></h2></div>
   <div class = "col-md-12 text-center"> <h4>Veteran's Administration Data Presentation</h4></div>
-</div>
 <hr width="75%" noshade>
+  </div>
+
 <div class="row">
-<div class = "col-md-1"></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="Vets by State Chart" height="425px" src="https://opendata.socrata.com/w/mwws-927d/y34g-bnf3?cur=Sp05mmmwmwS&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Chart/mwws-927d" title="Vets by State Chart" target="_blank">Vets by State Chart</a></iframe></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="Count of VA Facilities by State" height="425px" src="https://opendata.socrata.com/w/2v4d-eeq7/y34g-bnf3?cur=5HxMxZr17YJ&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Count-of-VA-Facilities-by-State/2v4d-eeq7" title="Count of VA Facilities by State" target="_blank">Count of VA Facilities by State</a></iframe></div>
+
+<div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Vets by State Chart" height="425px" src="https://opendata.socrata.com/w/mwws-927d/y34g-bnf3?cur=Sp05mmmwmwS&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Chart/mwws-927d" title="Vets by State Chart" target="_blank">Vets by State Chart</a></iframe></div>
+<div class ="col-md-5 center-image"><iframe width="100%" title="Count of VA Facilities by State" height="425px" src="https://opendata.socrata.com/w/2v4d-eeq7/y34g-bnf3?cur=5HxMxZr17YJ&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Count-of-VA-Facilities-by-State/2v4d-eeq7" title="Count of VA Facilities by State" target="_blank">Count of VA Facilities by State</a></iframe></div>
 <div class = "col-md-1"></div>
 </div>
 
 <div class = "row">
+
+<div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Vets by State Map" height="425px" src="https://opendata.socrata.com/w/9ar5-pzsn/y34g-bnf3?cur=pqQOR96frJ3&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Map/9ar5-pzsn" title="Vets by State Map" target="_blank">Vets by State Map</a></iframe></div>
+<div class ="col-md-5 center-image"><iframe width="100%" title="VETSTATS with VF Ratio" height="425px" src="https://opendata.socrata.com/w/seiw-yrax/y34g-bnf3?cur=ub5XwuOHcy2&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/VETSTATS-with-VF-Ratio/seiw-yrax" title="VETSTATS with VF Ratio" target="_blank">VETSTATS with VF Ratio</a></iframe></div>
 <div class = "col-md-1"></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="Vets by State Map" height="425px" src="https://opendata.socrata.com/w/9ar5-pzsn/y34g-bnf3?cur=pqQOR96frJ3&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Map/9ar5-pzsn" title="Vets by State Map" target="_blank">Vets by State Map</a></iframe></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="VETSTATS with VF Ratio" height="425px" src="https://opendata.socrata.com/w/seiw-yrax/y34g-bnf3?cur=ub5XwuOHcy2&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/VETSTATS-with-VF-Ratio/seiw-yrax" title="VETSTATS with VF Ratio" target="_blank">VETSTATS with VF Ratio</a></iframe></div>
-<div class = "col-md-1"></div>
+</div>
 
 <div class = "row">
-<form id = "measures">
-<select id = "choice">
+
+<div class = "col-md-10 center image col-md-offset-1" >
+<select id = "choice" style = "font-size: 15px">
   <option value="safety">Safety</option>
   <option value="effectiveness">Effectiveness</option>
   <option value="efficiency">Efficiency</option>
 </select>
-<input type = "button" 
-name = "Switch Category" value = "Change Map" id ='btn1' onclick = "changeCAT">
-</form>
+<input type = "button" class = "btn"
+name = "Switch Category" value = "View Different Performance Measure" id ='btn1'/>
 </div>
-<div class = "row">
-<div class = "col-md-1"></div>
-<div class ="col-md-10 center-image"><iframe id = "avg_scores" width="100%" title="State Scores for Safety All Years" height="425px" src="https://opendata.socrata.com/w/8tjz-p37i/y34g-bnf3?cur=_6CZnzqxdHZ&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Safety-All-Years/8tjz-p37i" title="State Scores for Safety All Years" target="_blank">State Scores for Safety All Years</a></iframe></div>
 </div>
 
 <div class = "row">
-<div class = "col-md-1"></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="Average Improvement All Measure All Years" height="425px" src="https://opendata.socrata.com/w/n3tq-9kd3/y34g-bnf3?cur=ynVGgbZ5iqx&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/Average-Improvement-All-Measure-All-Years/n3tq-9kd3" title="Average Improvement All Measure All Years" target="_blank">Average Improvement All Measure All Years</a></iframe></div>
-<div class ="col-md-5 center-image"><iframe width="500px" title="Improvement in Safety" height="425px" src="https://opendata.socrata.com/w/dtbn-94bu/y34g-bnf3?cur=2TviRIpjwyc&from=root" frameborder="0"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-in-Safety/dtbn-94bu" title="Improvement in Safety" target="_blank">Improvement in Safety</a></iframe></div>
+
+<div class ="col-md-10 col-md-offset-1"><iframe id = "avg_scores" width="100%" title="State Scores for Safety All Years" height="425px" src="https://opendata.socrata.com/w/8tjz-p37i/y34g-bnf3?cur=_6CZnzqxdHZ&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/State-Scores-for-Safety-All-Years/8tjz-p37i" title="State Scores for Safety All Years" target="_blank">State Scores for Safety All Years</a></iframe></div>
 </div>
 
+<div class = "row">
 
-
+<div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Average Improvement All Measure All Years" height="425px" src="https://opendata.socrata.com/w/n3tq-9kd3/y34g-bnf3?cur=ynVGgbZ5iqx&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Average-Improvement-All-Measure-All-Years/n3tq-9kd3" title="Average Improvement All Measure All Years" target="_blank">Average Improvement All Measure All Years</a></iframe></div>
+<div class ="col-md-5 center-image"><iframe width="100%" title="Performance Change FY10 - FY14" height="425px" src="https://opendata.socrata.com/w/nhrd-9mtk/y34g-bnf3?cur=OciuarvBqYU&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Performance-Change-FY10-FY14/nhrd-9mtk" title="Performance Change FY10 - FY14" target="_blank">Performance Change FY10 - FY14</a></iframe></div>
 </div>
 
+<div class = "row">
+
+<div class = "col-md-10 center image col-md-offset-1" >
+<select id = "choice2" style = "font-size: 15px">
+  <option value="safety">Safety</option>
+  <option value="effectiveness">Effectiveness</option>
+  <option value="efficiency">Efficiency</option>
+</select>
+<input type = "button" class = "btn"
+name = "Switch Category" value = "View Different Performance Measure" id ='btn2'/>
+</div>
+</div>
+<div class = "row">
+
+<div class ="col-md-10 col-md-offset-1"><iframe id = "avg_improvement" width="100%" title="Improvement in Safety" height="425px" src="https://opendata.socrata.com/w/dtbn-94bu/y34g-bnf3?cur=2TviRIpjwyc&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-in-Safety/dtbn-94bu" title="Improvement in Safety" target="_blank">Improvement in Safety</a></iframe></div>
+</div>
+
+<div class = "row center-image">
+
+<div height = "10px" width = "100%" class = "center-image"></div>
+</div>
 
 
 

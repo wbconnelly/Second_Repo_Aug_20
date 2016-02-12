@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src = "ajax_ex.js"></script>
+<script src = "ajax_ex2.js"></script>
+</head>
+
+<body>
+<div class = "col-md-offset-1"><h1>AJAX EXAMPLE PAGE</h1></div> 
+
+<div class ="row col-md-offset-1">
+<select id = "state_select" style = "font-size: 15px">
+
+  <option value="Texas">Texas</option>
+  <option value="Alabama">Alabama</option>
+</select>
+<input type = "button" class = "btn" onclick = "replace_table;"
+name = "Change_State" value = "Change Table" id ='btn3'/>
+</div>
+
+
+<table class="table-striped col-md-10 col-md-offset-1" id = "state_table">
+<tr id = "first_row">
+<th>Category</th>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+</tr>
+
+
+</table>
+
+</body>
+
+
+</html>

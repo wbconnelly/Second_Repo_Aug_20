@@ -22,7 +22,8 @@ input[type=text], select {
     border-radius: 2px;
 }
 input[type=button], button {
-    width: 20%;
+	font-weight: bold;
+    max-width: 300px;
     padding: 7px 10px;
     margin: 10px 10px;
     border: 1px solid #ccc;
@@ -53,27 +54,39 @@ input[type=button], button {
 <div class="row">
 
   <div class = "col-md-10 text-center col-md-offset-1" style = "background-color: black"> <h2><strong><u><font color = "white">DSA Homework Assignment</font></u></strong></h2></div>
-  <div class = "col-md-12 text-center"> <h4>Veteran's Administration Data Presentation</h4></div>
+  <div class = "col-md-12 text-center"> <h4>Veterans Administration Data Presentation</h4></div>
 <hr width="75%" noshade>
   </div>
 
-<div class="row">
 
+
+<div class="row">
+<div class = "row">
+  <div class ="col-md-5 text-center col-md-offset-1"> <h3><strong>Veterans by U.S. State</strong></h3></div>
+  <div class ="bottom-column col-md-5 text-center"> <h3><strong>Veterans Administration Facilities by U.S. State</strong></h3></div>
+</div>
 <div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Vets by State Chart" height="425px" src="https://opendata.socrata.com/w/mwws-927d/y34g-bnf3?cur=Sp05mmmwmwS&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Chart/mwws-927d" title="Vets by State Chart" target="_blank">Vets by State Chart</a></iframe></div>
 <div class ="col-md-5 center-image"><iframe width="100%" title="Count of VA Facilities by State" height="425px" src="https://opendata.socrata.com/w/2v4d-eeq7/y34g-bnf3?cur=5HxMxZr17YJ&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Count-of-VA-Facilities-by-State/2v4d-eeq7" title="Count of VA Facilities by State" target="_blank">Count of VA Facilities by State</a></iframe></div>
 
 </div>
 
-<div class = "row">
 
+
+<div class = "row">
+<div class = "row">
+  <div class ="col-md-5 text-center col-md-offset-1"> <h3><strong>Map of Veterans by State</strong></h3></div>
+  <div class ="bottom-column col-md-5 text-center"> <h3><strong> Ratio of Veterans to V.A. Facilities</strong></h3></div>
+</div>
 <div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Vets by State Map" height="425px" src="https://opendata.socrata.com/w/9ar5-pzsn/y34g-bnf3?cur=pqQOR96frJ3&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Vets-by-State-Map/9ar5-pzsn" title="Vets by State Map" target="_blank">Vets by State Map</a></iframe></div>
 <div class ="col-md-5 center-image"><iframe width="100%" title="VETSTATS with VF Ratio" height="425px" src="https://opendata.socrata.com/w/seiw-yrax/y34g-bnf3?cur=ub5XwuOHcy2&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/VETSTATS-with-VF-Ratio/seiw-yrax" title="VETSTATS with VF Ratio" target="_blank">VETSTATS with VF Ratio</a></iframe></div>
 
 </div>
 
+<hr width="75%" noshade>
+
 <div class = "row">
 
-<div class = "col-md-10 center image col-md-offset-1" >
+<div class = "col-md-4 col-md-offset-1" >
 <select id = "choice" style = "font-size: 15px">
   <option value="safety">Safety</option>
   <option value="effectiveness">Effectiveness</option>
@@ -82,6 +95,7 @@ input[type=button], button {
 <input type = "button" class = "btn"
 name = "Switch Category" value = "View Different Performance Measure" id ='btn1'/>
 </div>
+<div><h3><strong> Map of Average Score For all Years by Measure Category</strong></h3></div>
 </div>
 
 <div class = "row">
@@ -93,7 +107,7 @@ name = "Switch Category" value = "View Different Performance Measure" id ='btn1'
 <div class ="row">
 
 <div class = "col-md-10 center image col-md-offset-1" >
-<div class = "col-md-6 text-left"> <h4><strong>Select a State to view Average Scores for All Years:</strong></h4></div>
+<div class = "col-md-6 text-left"> <h3><strong>Select a State to view Average Scores for Each Year:</strong></h3></div>
 <select id = "state_select" style = "font-size: 15px">
 <!-- <option value="">Select a State</option> -->
 <option value="Alabama">Alabama</option>
@@ -169,7 +183,14 @@ name = "Change_State" value = "Change Table" id ="btn3"/>
 </div>
 </div>
 
+<hr width="75%" noshade>
+
 <div class = "row">
+<div class = "row">
+  <div class ="col-md-5 text-center col-md-offset-1"> <h3><strong>Total Change in Average Scores FY10-FY14</strong></h3></div>
+  <div class ="bottom-column col-md-5 text-center"> <h3><strong> Change in Average Scores by Measure Category FY10-FY14</strong></h3></div>
+</div>
+
 <div class ="col-md-5 center-image col-md-offset-1"><iframe width="100%" title="Average Improvement All Measure All Years" height="425px" src="https://opendata.socrata.com/w/n3tq-9kd3/y34g-bnf3?cur=ynVGgbZ5iqx&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Average-Improvement-All-Measure-All-Years/n3tq-9kd3" title="Average Improvement All Measure All Years" target="_blank">Average Improvement All Measure All Years</a></iframe></div>
 <div class ="col-md-5 center-image"><iframe width="100%" title="Performance Change FY10 - FY14" height="425px" src="https://opendata.socrata.com/w/nhrd-9mtk/y34g-bnf3?cur=OciuarvBqYU&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Performance-Change-FY10-FY14/nhrd-9mtk" title="Performance Change FY10 - FY14" target="_blank">Performance Change FY10 - FY14</a></iframe></div>
 
@@ -177,7 +198,7 @@ name = "Change_State" value = "Change Table" id ="btn3"/>
 
 <div class = "row">
 
-<div class = "col-md-10 center image col-md-offset-1" >
+<div class = "col-md-4 col-md-offset-1" >
 <select id = "choice2" style = "font-size: 15px">
   <option value="safety">Safety</option>
   <option value="effectiveness">Effectiveness</option>
@@ -186,29 +207,27 @@ name = "Change_State" value = "Change Table" id ="btn3"/>
 <input type = "button" class = "btn"
 name = "Switch Category" value = "View Different Performance Measure" id ='btn2'/>
 </div>
+<div class = "col-md-5 text-left">
+<div><h3><strong>Change in Average Scores FY10-FY14 by Measure Category</strong></h3></div>
+</div>
 </div>
 <div class = "row">
-
 <div class ="col-md-10 col-md-offset-1">
 <iframe id = "avg_improvement" width="100%" title="Improvement in Safety" height="425px" src="https://opendata.socrata.com/w/dtbn-94bu/y34g-bnf3?cur=2TviRIpjwyc&from=root" frameborder="5"scrolling="no"><a href="https://opendata.socrata.com/dataset/Improvement-in-Safety/dtbn-94bu" title="Improvement in Safety" target="_blank">Improvement in Safety</a></iframe>
 </div>
 </div>
 
+<hr width="75%" noshade>
 
 <div class ="row">
-
-<div class = "col-md-10 center image col-md-offset-1 text-left" >
- <h4><strong>Select a State to See Facilities and Scores:</strong></h4>
-
-</div>
-</div>
-
-<div class = "row ">
- <div class = "col-md-5 center-image col-md-offset-1" id="map" style="width:700px; height:500px; border-style: inset;">
-     
-</div>
-
-<div class = "col-md-5">
+<div class = "col-md-5 col-md-offset-1 text-left">
+ <h3><strong>Veterans Administration Facility Locations:</strong></h3>
+ </div>
+<div class = "col-md-6 text-left" style = "margin-right: 0px; padding: 0px 0px;">
+<div class = "col-md-5 text-left" style = "margin-right: 0px; padding: 0px 0px;">
+ <h3><strong>Facility Performance Details:</strong></h3>
+ </div>
+ <div class = "text-left">
 
 <select id = "state_fac_select" style = "font-size: 15px;">
 <!-- <option value="">Select a State</option> -->
@@ -263,13 +282,26 @@ name = "Switch Category" value = "View Different Performance Measure" id ='btn2'
 <option value="West Virginia">West Virginia</option>
 <option value="Wisconsin">Wisconsin</option>
 <option value="Wyoming">Wyoming</option>
-
 </select>
+
 <input type = "button" class = "btn"
-name = "Change_State_Facility" value = "Change State" id ="btn4"/>
+name = "Change_State_Facility" value = "Change State" id ="btn4"/>  
+
+</div>
+ </div>
+
+</div>
 
 
-<table class="table table-striped table-bordered" id = "facility_table" style = "width:650px">
+<div class = "row ">
+ <div class = "col-md-5 col-md-offset-1" id="map" style="width:700px; height:500px; border-style: inset;">
+ 
+</div>
+
+
+<div class = "col-md-6">
+
+<table class="table table-striped table-bordered" id = "facility_table" style="max-width:700px;">
 <tr id = "first_facility_row">
 <th>Facility</th>
 <th>City</th>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Feb 07 20:11:30 2016
+Created on Tue Feb 09 12:57:07 2016
 
-@author: William
+@author: wiconnelly
 """
 
 import pandas as pd
@@ -171,7 +171,7 @@ va_data.pct_asp_wn
 va_data.to_csv('C:/Users/William/Desktop/DSA_Homework_VA_ASPIRE_data/VA_DATA_V2.csv')
 va_data_2010 = va_data[va_data.FY == 2010]
 
-va_data_2010.to_csv('C:/Users/William/Desktop/DSA_Homework_VA_ASPIRE_data/va_data_2010.csv')
+va_data_2010.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/va_data_2010.csv')
 
 va_data2 = va_data.ix[:, 2:]
 
@@ -192,7 +192,7 @@ va_data2.head()
 
 va_data2.columns
 # get the Averages across years for all States
-va_data2.groupby(['State', 'FY']).mean().reset_index()
+
 
 va_data2['pct_asp_wn'].mean()
 x = va_data2.pct_asp_wn
@@ -204,7 +204,63 @@ va_data2['pct_asp_wn'] = list(PCT_ASP)
 va_data2['pct_asp_wn'].mean(dropna = True)
 
 
-va_data2.to_csv('C:/Users/William/Desktop/DSA_Homework_VA_ASPIRE_data/VA_DATA_V2.csv')
+va_data2.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/VA_DATA_V2.csv')
+
+# Get averages for each value grouped by State and Fiscal Year
+va_data2.groupby(['State', 'FY']).mean().reset_index()
+
+st_ct = va_data2.groupby(['FACILITY', 'State']).count().reset_index()
+
+State_count = st_ct.State.value_counts().reset_index()
+State_count['State_ABB'] = State_count['index']
+State_count['Facility_Count'] = State_count[0]
+State_count = State_count[['State_ABB', 'Facility_Count']]
+
+# read in the number of veterans by state
+vets_st = pd.read_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/vets_state.csv')
+
+
+Vets_Stats = pd.merge(State_count, vets_st, on = 'State_ABB')
+Vets_Stats.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/Vets_Stats.csv')
+Vets_Stats =  pd.read_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/Vets_Stats.csv')
+
+Vets_Stats['Facilities_per_Capita'] = Vets_Stats['Total Vets'] / Vets_Stats['Facility_Count']
+
+Vets_Stats['Total Vets'] = Vets_Stats['Total Vets'].astype('float')
+Vets_Stats.describe()
+
+va_data2.dropna().groupby(['State','MEASURE_CATEGORY', 'FY']).mean().reset_index()
+va_data2.dropna(how = 'all').groupby(['State','MEASURE_CATEGORY']).mean().reset_index()
+va_avg_state_cat = va_data2.dropna(how = 'all').groupby(['MEASURE_CATEGORY', 'State']).mean().reset_index()
+
+va_avg_yr_state_cat = va_data2.dropna(how = 'all').groupby(['FY', 'State','MEASURE_CATEGORY']).mean().reset_index()
+
+
+va_avg_yr_state_cat.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/AVG_ST_YR_CAT.csv')
+va_avg_state_cat.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/AVG_ST_CAT.csv')
+
+va_avg_cat_col = pd.read_csv('C:\Users\wiconnelly\Desktop\DSA_Homework_VA_ASPIRE_data\AVG_ST_YR_CAT_pivot.csv')
+va_cat_col = va_avg_cat_col[['State', 'State Name', 'MEASURE_CATEGORY','Improvement 10-14' ]]
+
+va_cat_col = pd.pivot_table(va_cat_col , values='Improvement 10-14', index='State Name', columns=['MEASURE_CATEGORY'])
+
+
+va_cat_col.to_csv('C:\Users\wiconnelly\Desktop\DSA_Homework_VA_ASPIRE_data\category_columns_improvement_allyrs.csv')
+
+
+# find average scores by facility in each state
+
+va_data_fac = va_data2[['FACILITY', 'City', 'State', 'City_State', 'MEASURE_CATEGORY', 'SCORE', 'FY']]
+va_data_fac.groupby(['FACILITY', 'City', 'State', 'MEASURE_CATEGORY',  'FY']).mean().reset_index()
+va_data_fac_pivot = pd.pivot_table(va_data_fac , values='SCORE', index=['FACILITY','City', 'State', 'MEASURE_CATEGORY'], columns='FY')
+va_data_fac_pivot.to_csv('C:/Users/wiconnelly/Desktop/DSA_Homework_VA_ASPIRE_data/va_data_fac_pivot.csv')
+
+
+
+
+
+
+
 
 
 

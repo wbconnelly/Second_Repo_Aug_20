@@ -9,17 +9,17 @@ jQuery(function($){$('#btn4').click( function initMap() {
   $('.table_row_fac').remove();
 $.ajax({
 	type: 'GET',
-	url: 'https://opendata.socrata.com/resource/mv3y-eras.json?state_name='+ state_filter_fac,
+	url: 'https://opendata.socrata.com/resource/panb-kmz6.json?state_name='+ state_filter_fac,
 	success: function(data) {$.each(data, function(i, item) {
 		 var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(item.location_1.latitude, item.location_1.longitude),
 							map: map});
 							
-				$('#first_facility_row').after('<tr class = "table_row_fac"><td>' + item.facility +'</td><td>' + item.city_name +'</td><td>' + item.measure_category +'</td><td>' + item._2010 +'</td><td>' + item._2011 + '</td><td>' + item._2012 + '</td><td>' + item._2013 + '</td><td>' + item._2014 + '</td></tr>' );
+				$('#first_facility_row').after('<tr class = "table_row_fac"><td>' + item.facility +'</td><td>' + item.city_name +'</td><td>' + item.measure_category +'</td><td>' + Math.round(item._2010 *100)/100 +'</td><td>' + Math.round(item._2011 *100)/100 + '</td><td>' + Math.round(item._2012 *100)/100 + '</td><td>' + Math.round(item._2013 *100)/100 + '</td><td>' + Math.round(item._2014 *100)/100 + '</td></tr>' );
 		
 				   var info_window = new google.maps.InfoWindow({
-					content: '<div>Facility:' + item.facility +'</div>' +
-						'<div> City:' +item.city_name +'</div>'
+					content: '<div>Facility: ' + item.facility +'</div>' +
+						'<div> City: ' +item.city_name +'</div>'
 				});
             google.maps.event.addListener(marker, 'click', function() {
               info_window.open(map, marker);

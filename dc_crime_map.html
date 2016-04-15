@@ -104,8 +104,8 @@ var crime_category = $('#crime_category').val()
 function total_inc(category){
     var total = 0
     for(var i = 0; i < dc_psa.features.length; i++) {
-    total = total + Number(dc_psa.features[i].properties[crime_category]);
-}
+    total = total + Number(dc_psa.features[i].properties[crime_category]);}
+
     var avg = total/i
     var q1 = (avg*2)/5;
     var q2 = q1 *2;
@@ -133,6 +133,9 @@ function getColor(d) {
 };
 console.log(getColor(dc_psa.features[0].properties[crime_category]));
 console.log(dc_psa.features[0].properties[crime_category]);
+
+crime_cat_2 = $("#crime_category option:selected").text();
+
 var style = function(feature) {
     return {
         fillColor: getColor(feature.properties[crime_category]),
@@ -144,19 +147,14 @@ var style = function(feature) {
     };
 }
 
-
 L.geoJson(dc_psa, {style: style}).addTo(mymap);
 
 
-
-//var category = "ROBBERY_15"
-
-var crime_data = $.getJSON('https://dc.demo.socrata.com/resource/mk4t-ueny.json?$limit=100000', function(data) { try{
+var crime_data = $.getJSON('https://dc.demo.socrata.com/resource/mk4t-ueny.json?offense=' + crime_cat_2, function(data) { try{
 $.each(data, function(i, item) {
     
     var latlng = [item.location.coordinates[1], item.location.coordinates[0]];
     var incident = L.marker(latlng,{icon: get_icon(item.offense)}).bindPopup(item.offense).addTo(mymap);
-//console.log(item.offense);
 
 });} 
 catch(err) {console.log(err);}
@@ -168,7 +166,6 @@ console.log(data);});
 console.log(dc_psa);
 
 });
-
 
 
 </script>

@@ -6,8 +6,7 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css" />
  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
-<script src="dc_crime2.geojson" type="text/javascript"></script>
-<script src="us_states.geojson" type="text/javascript"></script>
+
 <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
 
 <style> #mapid { height: 500px; }
@@ -21,92 +20,94 @@ input[type=select], select{
 <body>
 <div id="mapid" class = "col-md-10 col-md-offset-1" style="border: solid darkgrey; border-radius: 10px; margin-top: 30px; height: 750px"></div>
 <select id= "crime_category" class ="col-md-10 col-md-offset-1" style="border: solid darkgrey; border-radius: 10px; margin-bottom: 50px;">
-    <option value ="MOTO_TH_15">MOTOR VEHICLE THEFT</option>
-    <option value ="SX_AB_15">SEX ABUSE</option>
-    <option value ="ARSON_15">ARSON</option>
-    <option value ="HOM_2015">HOMICIDE</option>
-    <option value ="">BURGLARY</option>
-    <option value ="ASDW_15">ASSAULT W/DANGEROUS WEAPON</option>
-    <option value ="THEFT_AUTO_15_THFT_AU_15">THEFT F/AUTO</option>
-    <option value ="THFT_OT_15">THEFT/OTHER</option>
-    <option value ="ROBBERY_15">ROBBERY</option>
+    <option value ="MOTOR VEHICLE THEFT">MOTOR VEHICLE THEFT</option>
+    <option value ="SEX ABUSE">SEX ABUSE</option>
+    <option value ="ARSON">ARSON</option>
+    <option value ="HOMICIDE">HOMICIDE</option>
+    <option value ="BURGLARY">BURGLARY</option>
+    <option value ="ASSAULT W/DANGEROUS WEAPON">ASSAULT W/DANGEROUS WEAPON</option>
+    <option value ="THEFT F/AUTO">THEFT F/AUTO</option>
+    <option value ="THEFT/OTHER">THEFT/OTHER</option>
+    <option value ="ROBBERY">ROBBERY</option>
+
+<style>
+
+</style>
 
 </body>
 <script>
-
-$(function() {
-
 var center = [38.9, -77.0]
 var mymap = L.map('mapid').setView(center, 12);
-var crime_category = $('#crime_category').val()
-
-var sex_abuse_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/029.png',
-    iconSize: [20,20]
-});
-var arson_icon = L.icon({
-    iconUrl: 'https://www.iconexperience.com/_img/g_collection_png/standard/256x256/fire.png',
-    iconSize: [20,20]
-});
-var homicide_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/034.png',
-    iconSize: [20,20]
-});
-var burglary_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/003.png',
-    iconSize: [20,20]
-});
-var assault_dng_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/071.png',
-    iconSize: [20,20]
-});
-var theft_auto_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/055.png',
-    iconSize: [20,20]
-});
-var moto_theft_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/033.png',
-    iconSize: [20,20]
-});
-var theft_other_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/065.png',
-    iconSize: [20,20]
-});
-var marker_icon = L.icon({
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
-    iconSize: [20,20]
-});
-var robbery_icon = L.icon({
-    iconUrl: 'http://crime-security.org/material/101.png',
-    iconSize: [20,20]
-});
-
-function get_icon(d) {
-	return d ==  'SEX ABUSE' ? sex_abuse_icon:
-			d == 'ARSON' ? arson_icon:
-			d == 'HOMICIDE' ? homicide_icon:
-			d == 'BURGLARY' ? burglary_icon:
-			d == 'ASSAULT W/DANGEROUS WEAPON' ? assault_dng_icon:
-			d == 'THEFT F/AUTO' ? theft_auto_icon:
-			d == 'MOTOR VEHICLE THEFT' ? moto_theft_icon:
-			d == 'THEFT/OTHER' ? theft_other_icon:
-			d == 'ROBBERY' ? robbery_icon:
-				marker_icon;
-}
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + 'pk.eyJ1Ijoid2Jjb25uZWxseSIsImEiOiJjaW1pN2w2MncwMDYydXlrdTNyMHR6aWdwIn0.E-vP5rCL3l6lOLyfU0FyIA', {
     id: 'mapbox.emerald'
 }).addTo(mymap);
 
+// $(function() {
+
+var crimesAjax = $.getJSON('https://bc3.demo.socrata.com/resource/mcnk-jzhq.json?$limit=200000');
+
+var dcGeoJSON = $.getJSON('http://opendata.dc.gov/datasets/db24f3b7de994501aea97ce05a50547e_10.geojson');
+
+$.when(crimesAjax, dcGeoJSON).then(function(crimes, geoJSON) {
+    var crime = crimes[0];
+    var dc_geoJSON = geoJSON[0];
+
+    var crime_tot = {};
+
+
+    crime.forEach(function(a) {
+
+
+        if (a.psa in crime_tot)  {
+            if (a.offense in crime_tot[a.psa]) {crime_tot[a.psa][a.offense] ++ } else {
+                crime_tot[a.psa][a.offense] = 1
+            } 
+
+        }
+        else if (!(a.psa in crime_tot)) { crime_tot[a.psa] = {};
+                            crime_tot[a.psa][a.offense]= 1;
+                }
+    
+    });
+      
+
+        for (var n =0; n <= dc_geoJSON.features.length - 1; n++) {
+            dc_geoJSON.features[n].properties["crimes"]= crime_tot[dc_geoJSON.features[n].properties.PSA]
+    }
+console.log("FINAL", dc_geoJSON);
+console.log(dc_geoJSON.features[0].properties.crimes[$('#crime_category').val()]);
+
+// add choropleth map layer
+
+
+var dc_area = L.layerGroup();
+var crime_area = L.geoJson(dc_geoJSON, {
+        fillColor: '#999999',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    });
+dc_area.addLayer(crime_area);
+dc_area.addTo(mymap);
+
+// add change listener to the dropdown box
+
 $('#crime_category').change(function() {
+
 var crime_category = $('#crime_category').val()
+var crime_cat_2 = $("#crime_category option:selected").text();
+
+var dc_area = L.layerGroup();
 
 function total_inc(category){
     var total = 0
-    for(var i = 0; i < dc_psa.features.length; i++) {
-    total = total + Number(dc_psa.features[i].properties[crime_category]);}
+    for(var i = 0; i < dc_geoJSON.features.length; i++) {
+    total = total + Number(dc_geoJSON.features[i].properties.crimes[crime_category]);}
 
-    var avg = total/i
+    var avg = total/i;
     var q1 = (avg*2)/5;
     var q2 = q1 *2;
     var q3 = q1 *3;
@@ -131,14 +132,13 @@ function getColor(d) {
            d > total_inc(crime_category).q1   ? '#FFFF66' :
                       '#FFEDA0';
 };
-console.log(getColor(dc_psa.features[0].properties[crime_category]));
-console.log(dc_psa.features[0].properties[crime_category]);
+//console.log(getColor(dc_geoJSON.features[0].properties[crime_category]));
+//console.log(dc_geoJSON.features[0].properties[crime_category]);
 
-crime_cat_2 = $("#crime_category option:selected").text();
 
 var style = function(feature) {
     return {
-        fillColor: getColor(feature.properties[crime_category]),
+        fillColor: getColor(feature.properties.crimes[crime_category]),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -147,23 +147,20 @@ var style = function(feature) {
     };
 }
 
-L.geoJson(dc_psa, {style: style}).addTo(mymap);
+function psa_popup(feature, layer) {
+         layer.bindPopup('<h4> PSA: ' + feature.properties.PSA + '<br>' + crime_cat_2 + ': ' + Number(feature.properties.crimes[crime_category]) + '</h4>');
+     };
 
 
-var crime_data = $.getJSON('https://dc.demo.socrata.com/resource/mk4t-ueny.json?offense=' + crime_cat_2, function(data) { try{
-$.each(data, function(i, item) {
-    
-    var latlng = [item.location.coordinates[1], item.location.coordinates[0]];
-    var incident = L.marker(latlng,{icon: get_icon(item.offense)}).bindPopup(item.offense).addTo(mymap);
+var crime_area = L.geoJson(dc_geoJSON, {style: style, 
+                    onEachFeature: psa_popup
+                });
+dc_area.addLayer(crime_area);
+dc_area.addTo(mymap);
 
-});} 
-catch(err) {console.log(err);}
-
-console.log(data);});
 
 });
 
-console.log(dc_psa);
 
 });
 

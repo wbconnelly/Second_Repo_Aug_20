@@ -68,15 +68,15 @@ $.when(crimesAjax, dcGeoJSON).then(function(crimes, geoJSON) {
         else if (!(a.psa in crime_tot)) { crime_tot[a.psa] = {};
                             crime_tot[a.psa][a.offense]= 1;
                 }
-    
     });
       
 
         for (var n =0; n <= dc_geoJSON.features.length - 1; n++) {
             dc_geoJSON.features[n].properties["crimes"]= crime_tot[dc_geoJSON.features[n].properties.PSA]
     }
+
 console.log("FINAL", dc_geoJSON);
-console.log(dc_geoJSON.features[0].properties.crimes[$('#crime_category').val()]);
+//console.log(dc_geoJSON.features[0].properties.crimes[$('#crime_category').val()]);
 
 // add choropleth map layer
 
@@ -100,36 +100,40 @@ $('#crime_category').change(function() {
 var crime_category = $('#crime_category').val()
 var crime_cat_2 = $("#crime_category option:selected").text();
 
-var dc_area = L.layerGroup();
 
-function total_inc(category){
-    var total = 0
-    for(var i = 0; i < dc_geoJSON.features.length; i++) {
-    total = total + Number(dc_geoJSON.features[i].properties.crimes[crime_category]);}
+dc_area.clearLayers();
 
+
+function coerce(y) {  
+    if (isNaN(y)) {return 0;} 
+
+    else {return y;}
+};
+
+var total = 0
+for(var i = 0; i < dc_geoJSON.features.length; i++) {
+    var x = coerce(Number(dc_geoJSON.features[i].properties.crimes[crime_category]));
+
+    total = total + x;
+   }           
+ console.log(total);
     var avg = total/i;
     var q1 = (avg*2)/5;
     var q2 = q1 *2;
     var q3 = q1 *3;
     var q4 = q1 *4;
     var q5 = q1 *5;
-return {total:total, 
-        num:i, 
-        average: avg,
-        q1 : q1,
-        q2: q2,
-        q3: q3,
-        q4: q4,
-        q5: q5};}
 
-console.log(total_inc(crime_category).q1, total_inc(crime_category).q2, total_inc(crime_category).q3, total_inc(crime_category).q4, total_inc(crime_category).q5 );
+    
+
+ console.log(q1, q2, q3, q4, q5);
 
 function getColor(d) {
-     return d > total_inc(crime_category).q5 ? '#800000' :
-           d > total_inc(crime_category).q4 ? '#FF0000' :
-           d > total_inc(crime_category).q3  ? '#FF8000' :
-           d > total_inc(crime_category).q2  ? '#FFCC66' :
-           d > total_inc(crime_category).q1   ? '#FFFF66' :
+     return d > q5 ? '#800000' :
+           d > q4 ? '#FF0000' :
+           d > q3  ? '#FF8000' :
+           d > q2  ? '#FFCC66' :
+           d > q1   ? '#FFFF66' :
                       '#FFEDA0';
 };
 //console.log(getColor(dc_geoJSON.features[0].properties[crime_category]));

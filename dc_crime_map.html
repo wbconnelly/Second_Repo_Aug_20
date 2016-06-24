@@ -7,19 +7,96 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 
-<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 
-<style> #mapid { height: 500px; }
-input[type=select], select{
+<style> 
+
+#mapid { height: 500px;}
+
+select{
     width: 25%;
 	height: 38px;
 	margin-top: 1%;
     border: 1px solid #ccc;
-    border-radius: 2px;}</style>
+    border-radius: 2px;}
+
+.info-box{
+    padding: 0px;
+    background-color:#CCCCCC;
+    font: 30px/16px Arial, Helvetica, sans-serif;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-left: 25px;
+    color: #191919;
+    height: 750px;
+    float:left;
+    }
+
+#mapid{border: solid darkgrey; 
+    border-radius: 10px; 
+    margin-top: 30px; 
+    padding-left: 30px;
+    height: 750px;
+}
+.title{ font-size: 50px;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    color:#000000;
+    display:inline;
+    text-align: end;
+}
+a:link {text-align: }
+
+.info-title{
+    font: 35px/16px Arial, Helvetica, sans-sa;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #000080;
+    color:#FFFFFF;
+    height:15%;
+    width:100%;
+    text-align: center;
+    padding-top: 45px; 
+}
+br:before {
+    display: block;
+    margin-top: 10px;
+    content: "";
+}
+
+.psa-info, li{
+    padding-top-top:10px;
+    margin-top:10px;
+}
+
+</style>
 </head>
 <body>
-<div id="mapid" class = "col-md-10 col-md-offset-1" style="border: solid darkgrey; border-radius: 10px; margin-top: 30px; height: 750px"></div>
-<select id= "crime_category" class ="col-md-10 col-md-offset-1" style="border: solid darkgrey; border-radius: 10px; margin-bottom: 50px;">
+<div class="row">
+
+<div class="col-md-9 col-md-offset-1">
+    <div class="col-md-1 title=" ><a href="http://dc.gov/"><img style="width:250px;" src="http://dc.gov/sites/default/files/dc/dcgov_logo.jpg"></a></div>
+    <div class = "col-md-11 title"> <strong>Distict of Columbia Type-1 Crime Map</strong></div>
+    <div style="text-align:end" class="col-md-11"> <h1>Crimes by Police Service Area</h1></div>
+</div>
+
+<div class="col-md-9 col-md-offset-1">
+    
+  <hr width="100%" style="height:5px" noshade>
+</div>
+
+</div>
+
+<div class="row">
+    <div id="mapid" class = "col-md-7 col-md-offset-1"></div>
+    <div class="info-box col-md-2">
+    <div class="info-title"><div>SERVICE AREA PROFILE</div></div>
+    </div> 
+</div>
+
+<select id= "crime_category" class ="col-md-offset-1" style="border: solid darkgrey; border-radius: 10px; margin-bottom: 50px;">
+    <option value ="DEFAULT">SELECT A CRIME CATEGORY TO EXPLORE THE DATA</option>
     <option value ="MOTOR VEHICLE THEFT">MOTOR VEHICLE THEFT</option>
     <option value ="SEX ABUSE">SEX ABUSE</option>
     <option value ="ARSON">ARSON</option>
@@ -30,9 +107,7 @@ input[type=select], select{
     <option value ="THEFT/OTHER">THEFT/OTHER</option>
     <option value ="ROBBERY">ROBBERY</option>
 
-<style>
 
-</style>
 
 </body>
 <script>
@@ -151,14 +226,58 @@ var style = function(feature) {
     };
 }
 
-function psa_popup(feature, layer) {
-         layer.bindPopup('<h4> PSA: ' + feature.properties.PSA + '<br>' + crime_cat_2 + ': ' + Number(feature.properties.crimes[crime_category]) + '</h4>');
-     };
 
+
+function psa_popup(e) {
+    var layer = e.target;
+
+    $(".psa-info").remove();
+
+    $('.info-title').after('<div class="psa-info"><div>'+ 'POLICE SERVICE AREA:  ' + layer.feature.properties.PSA +'</div><br> <ul><li>' + crime_category + ": " + coerce(layer.feature.properties.crimes[crime_category]) + "</li><br><li>"+ "TOTAL POPULATION: "+layer.feature.properties.TOTALPOP+"</li><br><li>FEMALE: " + coerce(layer.feature.properties.POPFEMALE)+"</li><br><li>MALE: " + coerce(layer.feature.properties.POPMALE)+"</li><br><li>WHITE: " + layer.feature.properties.WHITE +"  </li><br><li>BLACK: " + layer.feature.properties.BLACK +" </li><br><li>ASIAN: " + layer.feature.properties.ASIAN +" </li><br><li>HISPANIC: " + layer.feature.properties.HISPANIC +" </li><br><li>GIS DATA: " + "<a href="+layer.feature.properties.WEB_URL +">DC GIS PORTAL</a></li></ul></div>");
+
+     // layer.bindPopup('<h4> PSA: ' + layer.feature.properties.PSA + '<br>' + crime_cat_2 + ': ' + Number(layer.feature.properties.crimes[crime_category]) + '</h4>')
+
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7});
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();}
+
+};
+
+
+
+function resetHighlight(e) {
+    crime_area.resetStyle(e.target);
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        //click: highlightFeature,
+        mouseover: psa_popup,
+        mouseout: resetHighlight
+        //click: psa_popup
+    });
+}
 
 var crime_area = L.geoJson(dc_geoJSON, {style: style, 
-                    onEachFeature: psa_popup
+                    onEachFeature: onEachFeature
                 });
+
+
+$.each(dc_geoJSON.features, 
+
+                function(i, item) {}
+
+    // function psa_popup(feature, layer) {
+    //      layer.bindPopup('<h4> PSA: ' + feature.properties.PSA + '<br>' + crime_cat_2 + ': ' + Number(feature.properties.crimes[crime_category]) + '</h4>');
+    //  }
+     );
+
 dc_area.addLayer(crime_area);
 dc_area.addTo(mymap);
 
